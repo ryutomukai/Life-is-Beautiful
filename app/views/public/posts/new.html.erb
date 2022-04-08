@@ -1,0 +1,23 @@
+<h1>新規投稿フォーム</h1>
+
+<%= form_with model: @post do |f| %>
+<table>
+  <tr>
+    <th><%= f.label :投稿画像 %></th>
+    <td><%= f.file_field :image, accept: "image/*" %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :投稿動画 %></th>
+    <td><%= f.file_field :video, accept: "video/*" %></td>
+  </tr>
+  <tr>
+    <th>タイトル</th>
+    <td><%= f.text_field :title,class: "form-control", placeholder: "タイトル" %></td>
+  </tr>
+  <tr>
+    <th>文章</th>
+    <td><%= f.text_area :body,class: "form-control", placeholder: "文章" %></td>
+  </tr>
+</table>
+<div class="d-flex justify-content-center"><%= f.submit "新規投稿", class: "btn btn-success" %></div>
+<% end %>

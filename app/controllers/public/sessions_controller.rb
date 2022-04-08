@@ -18,12 +18,23 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
+   def after_sign_in_path_for(resource)
+    about_path
+  end
+
+  def after_sign_out_path_for(resource)
+    root_path
+  end
+
+
   protected
 
   def reject_user
+    # 退会しているかを判断するメソッド
     @user = User.find_by(name: params[:user][:name])
+    # 【処理内容1】 入力されたemailからアカウントを1件取得
     if @user
-      if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == false)
+      if @user.valid_password?(params[:user][:password]) && (@user.id_deleted == true)
         flash[:notice] = "退会済みです。再度ご登録をしてご利用ください。"
         redirect_to new_user_registration
       else
