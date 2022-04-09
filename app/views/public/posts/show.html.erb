@@ -1,1 +1,28 @@
-<%= @post %>
+<% if @post.video.attached? %>
+  <%= @post.title %><br>
+  <%= @post.body %><br>
+  <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+<% else @post.image.attached? %>
+  <%= @post.title %><br>
+  <%= @post.body %><br>
+  <%= image_tag @post.get_file(500,500) %>
+<% end %>
+
+<% if @post.user == current_user %>
+  <%= link_to "削除", post_path(@post), method: :delete %>
+<% end %>
+
+コメント件数:<%= @post.post_comments.count %>
+<% @post.post_comments.each do |post_comment| %>
+  <%= image_tag post_comment.user.get_profile_image(50,50) %>
+  <%= post_comment.user.name %>
+  <%= post_comment.comment %>
+  <% if post_comment.user == current_user %>
+    <%= link_to "削除" , post_post_comment_path(post_comment.post, post_comment), method: :delete  %>
+  <% end %>
+<% end %>
+
+<%= form_with model: [@post, @post_comment]  do |f| %>
+  <%= f.text_area :comment , placeholder: "コメントをここに" %>
+  <%= f.submit "送信する" %>
+<% end %>

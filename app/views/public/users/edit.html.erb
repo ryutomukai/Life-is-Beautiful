@@ -4,6 +4,12 @@
   <table>
     <tr>
       <th class="form-group">
+        <lavel for="profile_image">プロフィール画像</lavel>
+        <div class><%= f.file_field :profile_image, accept: "image/*" %></div>
+      </th>
+    </tr>
+    <tr>
+      <th class="form-group">
         <lavel for="user_name">ニックネーム</lavel>
         <div class><%= f.text_field :name %></div>
       </th>
@@ -14,10 +20,12 @@
         <div class><%= f.text_field :email %></div>
       </th>
     </tr>
+    <tr>
       <th class="form-group">
         <lavel for="phone_number">電話番号</lavel>
         <div class><%= f.text_field :phone_number %></div>
       </th>
+    </tr>
     <tr>
     </tr>
       <th class="form-group">

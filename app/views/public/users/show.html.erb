@@ -1,5 +1,6 @@
-<h1>マイページ</h><br>
+<h1>マイページ</h1><br>
 
+<%= image_tag @user.get_profile_image(200,200) %><br>
 <%= @user.name %><br>
 <%= @user.email %><br>
 <%= @user.phone_number %><br>
@@ -7,4 +8,14 @@
 
 <%= link_to "新規投稿", new_post_path %>
 <%= link_to "編集する", edit_user_path %>
-<%= link_to "退会する",unsubscribe_path  %>
+<%= link_to "退会する",unsubscribe_path  %><br>
+
+
+<% @posts.each do |post| %>
+  <tr>
+    <%= link_to post_path(post.id) do %>
+      <%= post.title %>
+    <% end %>
+    <%= post.body %>
+  </tr>
+<% end %>

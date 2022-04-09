@@ -13,8 +13,13 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
+  def destroy
+    Post.find(params[:id]).destroy
+    redirect_to user_path(current_user)
+  end
 
   private
 
