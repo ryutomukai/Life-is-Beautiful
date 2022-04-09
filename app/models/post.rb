@@ -5,6 +5,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   #投稿ファイル表示
   def get_file(width,height)
@@ -15,4 +16,9 @@ class Post < ApplicationRecord
     end
     image.variant(resize_to_limit: [width, height]).processed
   end
+
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
+
 end
