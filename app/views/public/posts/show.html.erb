@@ -2,10 +2,12 @@
   <%= @post.title %><br>
   <%= @post.body %><br>
   <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+  <%= render "public/favorites/favorite" , post: @post %>
 <% else @post.image.attached? %>
   <%= @post.title %><br>
   <%= @post.body %><br>
   <%= image_tag @post.get_file(500,500) %>
+  <%= render "public/favorites/favorite" , post: @post %>
 <% end %>
 
 <% if @post.user == current_user %>
