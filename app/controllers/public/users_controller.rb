@@ -1,5 +1,19 @@
 class Public::UsersController < ApplicationController
+
+  before_action :search
+
+  def search
+    # params[:q]のqには検索フォームに入力した値が入る
+    @q = User.ransack(params[:q])
+  end
+
   def index
+    @userall = User.all
+    #検索機能
+
+    if !params[:q].nil? && params[:q][:name_cont] != "" && params[:q][:name_cont] != " " && params[:q][:name_cont] != "　"
+      @users = @q.result(distinct: true)
+    end
   end
 
   def show

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get "followers" => "relationships#followers", as: "followers"
     end
+  #検索機能
+    get "search"
   end
 
   # 退会確認画面
