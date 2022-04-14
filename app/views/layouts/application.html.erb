@@ -19,6 +19,12 @@
         <li>
           <%= link_to "マイページ", user_path(current_user) %>
         </li>
+        <li>
+          <%= link_to "ユーザー一覧", users_path %>
+        </li>
+        <li>
+          <%= link_to "投稿一覧", posts_path %>
+        </li>
       <% elsif admin_signed_in? %>
         <li>
           <%= link_to "ログアウト",destroy_admin_session_path,method: :delete %>
@@ -29,6 +35,9 @@
         </li>
         <li>
           <%= link_to "ログイン", new_user_session_path %>
+        </li>
+        <li>
+          <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %>
         </li>
         <li>
           <%= link_to "管理者ログイン", new_admin_session_path %>

@@ -1,5 +1,8 @@
 class Public::UsersController < ApplicationController
 
+  #ゲストユーザー
+  before_action :ensure_guest_user, only: [:edit]
+  #
   before_action :search
 
   def search
@@ -7,17 +10,23 @@ class Public::UsersController < ApplicationController
     @q = User.ransack(params[:q])
   end
 
+  #ユーザーがいいねした投稿一覧
+  def favorites
+    @user = User.find(params[:id])
+    favorites = Favorite.where(user_id:  @user.id).pluck(:post_id)
+    @favorite_posts = Post.find(favorites)
+  end
+
   def index
     @userall = User.all
     #検索機能
-
     if !params[:q].nil? && params[:q][:name_cont] != "" && params[:q][:name_cont] != " " && params[:q][:name_cont] != "　"
       @users = @q.result(distinct: true)
     end
   end
 
   def show
-    @user = current_user
+    @user = User.find(params[:id])
     @posts = @user.posts
   end
 
@@ -48,5 +57,16 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name,:email,:introduction,:phone_number,:profile_image)
   end
+
+
+  private
+    #ゲストユーザー
+    def ensure_guest_user
+      @user = User.find(params[:id])
+      if @user.name == "ゲストユーザー"
+        redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      end
+    #
+    end
 
 end

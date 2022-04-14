@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  #ゲストログイン
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+  #
+
   namespace :public do
     get 'relationships/followings'
     get 'relationships/followers'
@@ -10,18 +16,25 @@ Rails.application.routes.draw do
   }
 
   scope module: :public do
-  resources :users, only:[:show, :edit, :update]
-  resources :posts do
-    resources :post_comments, only:[:create, :destroy]
-    resource :favorites, only:[:create, :destroy]
+    resources :users, only:[:show, :edit, :update, :index] do
+      member do
+        get :favorites
+      end
     end
-  #フォロー機能
-  resources :users do
-    resource :relationships, only:[:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get "followers" => "relationships#followers", as: "followers"
+    resources :posts do
+      resources :post_comments, only:[:create, :destroy]
+      resource :favorites, only:[:create, :destroy]
+        member do
+          get :favorites
+        end
     end
-  #検索機能
+    #フォロー機能
+    resources :users do
+      resource :relationships, only:[:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get "followers" => "relationships#followers", as: "followers"
+    end
+    #検索機能
     get "search"
   end
 

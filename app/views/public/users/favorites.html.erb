@@ -1,0 +1,11 @@
+<p>いいねした投稿一覧</p>
+
+<% @favorite_posts.each do |post|%>
+  <%= image_tag post.user.get_profile_image(50,50) %>
+  <%= link_to user_path(post.user) do %>
+    <% post.user.name %>
+  <% end %>
+  <%= link_to post_path(post) do %>
+    <%= post.title %>
+  <% end %>
+<% end %>

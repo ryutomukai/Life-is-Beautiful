@@ -1,9 +1,15 @@
 <% if @post.video.attached? %>
+  <%= link_to user_path(@post.user_id) do %>
+    <%= @post.user.name %>
+  <% end %><br>
   <%= @post.title %><br>
   <%= @post.body %><br>
   <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
   <%= render "public/favorites/favorite" , post: @post %>
 <% else @post.image.attached? %>
+  <%= link_to user_path(@post.user_id) do %>
+    <%= @post.user.name %>
+    <% end %><br>
   <%= @post.title %><br>
   <%= @post.body %><br>
   <%= image_tag @post.get_file(500,500) %>
