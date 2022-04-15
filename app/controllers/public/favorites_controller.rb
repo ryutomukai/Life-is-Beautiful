@@ -15,11 +15,4 @@ class Public::FavoritesController < ApplicationController
     redirect_to post_path(post)
   end
 
-  def index
-    
-    
-      
-  end
-
-
 end

@@ -18,7 +18,7 @@ class Public::SessionsController < Devise::SessionsController
   #   super
   # end
 
-   def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource)
     about_path
   end
 

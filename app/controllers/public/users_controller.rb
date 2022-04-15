@@ -1,10 +1,11 @@
 class Public::UsersController < ApplicationController
 
   #ゲストユーザー
-  before_action :ensure_guest_user, only: [:edit]
-  #
+  before_action :ensure_guest_user, only: [:edit, :unsubscribe, :withdrawal]
+  #検索機能
   before_action :search
 
+  #検索機能
   def search
     # params[:q]のqには検索フォームに入力した値が入る
     @q = User.ransack(params[:q])
