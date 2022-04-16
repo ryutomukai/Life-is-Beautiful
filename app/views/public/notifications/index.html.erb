@@ -1,0 +1,11 @@
+<h1>通知一覧</h1>
+
+<% @notifications.where.not(visitor_id: current_user.id) %>
+<% if @notifications.exists? %>
+  <%= render "notification" %>
+  <%= paginate notifications %>
+<% else %>
+<div>通知はありません</div>
+<% end %>
+<%= paginate @notifications %>
+

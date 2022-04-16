@@ -36,6 +36,9 @@ Rails.application.routes.draw do
     end
     #検索機能
     get "search"
+    #通知機能
+    resources :notifications, only: :index
+
   end
 
   # 退会確認画面
