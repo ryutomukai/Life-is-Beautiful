@@ -5,7 +5,9 @@
   <%= @post.title %><br>
   <%= @post.body %><br>
   <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+  <div id="favorite_buttons_<%= @post.id %>">
   <%= render "public/favorites/favorite" , post: @post %>
+  </div>
 <% else @post.image.attached? %>
   <%= link_to user_path(@post.user_id) do %>
     <%= @post.user.name %>
@@ -13,7 +15,9 @@
   <%= @post.title %><br>
   <%= @post.body %><br>
   <%= image_tag @post.get_file(500,500) %>
+  <div id="favorite_buttons_<%= @post.id %>">
   <%= render "public/favorites/favorite" , post: @post %>
+  </div>
 <% end %>
 
 <% if @post.user == current_user %>

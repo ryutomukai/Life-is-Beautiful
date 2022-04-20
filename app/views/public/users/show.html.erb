@@ -19,6 +19,7 @@
 <% end %>
 
 <%= link_to "いいね一覧", favorites_user_path(@user) %>
+<%= link_to "通知一覧", notifications_path %>
 
 <% if current_user == @user && @user.name != "ゲストユーザー" %>
   <%= link_to "新規投稿", new_post_path %>

@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :followers, through: :reverse_of_relationships, source: :follower
   #通知機能
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
-  has_many :passive_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
   #ゲストログイン
   def self.guest
     find_or_create_by!(name: 'ゲストユーザー' ,email: 'guest@example.com') do |user|

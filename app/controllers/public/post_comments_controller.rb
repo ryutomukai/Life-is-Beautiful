@@ -6,7 +6,7 @@ class Public::PostCommentsController < ApplicationController
     comment.post_id = post.id
     comment.save
     #通知
-    post_commnet.create_notification_post_comment!(current_user, post_comment.id)
+    post.create_notification_post_comment!(current_user, comment.id)
     redirect_to post_path(post)
   end
 

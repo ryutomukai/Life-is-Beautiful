@@ -37,7 +37,7 @@ class Post < ApplicationRecord
       if notification.visitor_id == notification.visited_id
         notification.checked = true
       end
-      notification.save. if notification.valid?
+      notification.save if notification.valid?
     end
   end
 
@@ -45,7 +45,7 @@ class Post < ApplicationRecord
     #自分以外にコメントしている人を全て取得し、全員に通知を送る
     temp_ids = PostComment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
     temp_ids.each do |temp_id|
-      save_notification_post_comment!(current_user, post_comment_id, temp_id["user_id"])
+      save_notification_post_comment!(current_user, post_comment_id, temp_id['user_id'])
     end
     #まだ誰もコメントしていない場合は、投稿者に通知を送る
     save_notification_post_comment!(current_user, post_comment_id, user_id) if temp_ids.blank?
@@ -60,9 +60,9 @@ class Post < ApplicationRecord
       action: "post_comment"
     )
     #自分の投稿に対するコメントの場合は、通知済みとする
-    if notnification.visitor_id == notification.visited_id
+    if notification.visitor_id == notification.visited_id
       notification.checked = true
     end
-    notification.save if notification.vaild?
+    notification.save
   end
 end

@@ -70,3 +70,7 @@ gem 'ransack'
 
 #ページネーション
 gem 'kaminari'
+#非同期通信
+gem 'jquery-rails'
+#デバック
+gem 'pry-byebug', group: :development
