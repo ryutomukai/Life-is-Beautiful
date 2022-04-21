@@ -34,6 +34,14 @@
   <% end %>
 <% end %>
 
+<% if @post_comment.errors.any? %>
+  <ul>
+    <% @post_comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_with model: [@post, @post_comment]  do |f| %>
   <%= f.text_area :comment , placeholder: "コメントをここに" %>
   <%= f.submit "送信する" %>
