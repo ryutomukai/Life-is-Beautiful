@@ -6,7 +6,7 @@ class Public::PostCommentsController < ApplicationController
     @post_comment.post_id = @post.id
     if @post_comment.save
     #通知
-      @post.create_notification_post_comment!(current_user, comment.id)
+      @post.create_notification_post_comment!(current_user, @post_comment.id)
       redirect_to post_path(@post)
     else
       render "public/posts/show"
@@ -17,8 +17,6 @@ class Public::PostCommentsController < ApplicationController
     PostComment.find(params[:id]).destroy
     redirect_to request.referer
   end
-
-
 
   private
 

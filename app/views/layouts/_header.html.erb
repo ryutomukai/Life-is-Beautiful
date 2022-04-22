@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#3C240A	">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <% if user_signed_in? %>
+          <li class="mt-2 mr-5" style="color: #FFFFFF;">
+            ようこそ<br>
+            <%= current_user.name %>さん！
+          </li>
+          <li>
+            <%= link_to user_path(current_user),class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-circle-user"></i> マイページ
+            <% end %>
+          </li>
+          <li>
+            <%=  link_to users_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-cake-candles"></i> ユーザー一覧
+            <% end %>
+          </li>
+          <li>
+            <%=  link_to posts_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-cake-candles"></i> 投稿一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+            <% end %>
+          </li>
+        <% elsif admin_signed_in? %>
+          <li>
+            <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to new_user_registration_path ,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-circle-question"></i> 新規登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path ,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-cake-candles"></i> ログイン
+            <% end %>
+          </li>
+          <li>
+            <%= link_to users_guest_sign_in_path ,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-user-plus"></i> ゲストログイン
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_admin_session_path ,class: 'nav-link text-light' do %>
+             <i class="fa-solid fa-right-to-bracket"></i> 管理者ログイン
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

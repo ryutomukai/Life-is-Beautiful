@@ -6,6 +6,7 @@ class PostComment < ApplicationRecord
 
   validate :ng
 
+  #コメント制限
   def ng
     limits = Limit.all
     limits.each do |limit|
