@@ -1,25 +1,71 @@
-<h1>ユーザー一覧</h1>
-<!--検索フォーム-->
-<%= search_form_for @q do |f| %>
-  <!--name_contは、あいまい検索を指定-->
-  <%= f.text_field :name_cont %>
-  <%= f.submit "検索" %>
-<% end %>
-<!--検索結果-->
-<% if params[:q].nil? %>
-  <% @userall.each do |user| %>
-    <%= image_tag user.get_profile_image(50,50) %>
-    <%= link_to user_path(user) do %>
-      <%= user.name %>
-    <% end %>
-  <% end %>
-<% elsif !@users.present? && !params[:q].empty? %>
-  <p>検索結果はありません</p>
-<% else @users.present? %>
-  <% @users.each do |user| %>
-    <%= image_tag user.get_profile_image(50,50) %>
-    <%= link_to user_path(user) do %>
-      <%= user.name %>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="container-xxl mt-5 mx-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <td><h2 class="ml-5">投稿一覧</h2></td>
+        <!--検索フォーム-->
+        <td>
+          <%= search_form_for @q do |f| %>
+            <!--name_contは、あいまい検索を指定-->
+            <%= f.text_field :name_cont %>
+            <%= f.submit "検索" %>
+          <% end %>
+        </td>
+      </tr>
+    </thead>
+  </table>
+  <!--検索結果-->
+  <table class="table">
+    <tbody>
+      <div class="ml-5">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>ユーザー名</th>
+              <th>紹介文</th>
+            </tr>
+          </thead>
+        <% if params[:q].nil? %>
+          <% @userall.each do |user| %>
+            <tbody>
+              <tr>
+                <td scope="row">
+                  <%= image_tag user.get_profile_image(50,50) %>
+                </td>
+                <td>
+                  <%= link_to user_path(user) do %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= user.introduction %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        <% elsif !@users.present? && !params[:q].empty? %>
+          <p>検索結果はありません</p>
+        <% else @users.present? %>
+          <% @users.each do |user| %>
+            <tbody>
+              <tr>
+                <td scope="row">
+                  <%= image_tag user.get_profile_image(50,50) %>
+                </td>
+                <td>
+                  <%= link_to user_path(user) do %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
+                <td>
+                  <%= user.introduction %>
+                </td>
+              </tr>
+            </tbody>
+          <% end %>
+        <% end %>
+      </div>
+    </tbody>
+  </table>
+</div>
