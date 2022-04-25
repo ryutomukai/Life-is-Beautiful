@@ -1,48 +1,109 @@
-<% if @post.video.attached? %>
-  <%= link_to user_path(@post.user_id) do %>
-    <%= @post.user.name %>
-  <% end %><br>
-  <%= @post.title %><br>
-  <%= @post.body %><br>
-  <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
-  <div id="favorite_buttons_<%= @post.id %>">
-  <%= render "public/favorites/favorite" , post: @post %>
+<div class="container-xl mt-5 m-5">
+  <div class="row">
+    <div class="col-lg-7">
+        <% if @post_comment.errors.any? %>
+        <ul>
+          <% @post_comment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+        <% end %>
+        <% if @post.video.attached? %>
+          <tr>
+            <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+          </tr><br>
+          <tr>
+            <td>
+              投稿者：
+              <%= link_to user_path(@post.user_id) do %>
+                <%= @post.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= form_with model: [@post, @post_comment]  do |f| %>
+              <%= f.text_area :comment , placeholder: "コメントをここに" %>
+              <%= f.submit "送信する" %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              タイトル：<%= @post.title %><br>
+              投稿文：<%= @post.body %><br>
+            </td>
+          </tr>
+          <tr>
+            <div id="favorite_buttons_<%= @post.id %>">
+            <%= render "public/favorites/favorite" , post: @post %>
+            </div>
+            <div>
+              コメント:<%= @post.post_comments.count %>件
+            </div>
+          </tr>
+        <% else @post.image.attached? %>
+          <tr>
+            <%= image_tag @post.get_file(400,500) %>
+          </tr><br>
+          <tr>
+            <td>
+              投稿者：
+              <%= link_to user_path(@post.user_id) do %>
+                <%= @post.user.name %>
+              <% end %>
+            </td>
+            
+          </tr>
+          <tr>
+            タイトル：<%= @post.title %><br>
+            投稿文：<%= @post.body %><br>
+          </tr>
+          <tr>
+          <div id="favorite_buttons_<%= @post.id %>">
+          <%= render "public/favorites/favorite" , post: @post %>
+          </div>
+          <td>
+            コメント:<%= @post.post_comments.count %>件
+          </td>
+          </tr>
+        <% end %>
+        <% if @post.user == current_user %>
+          <%= link_to "削除", post_path(@post), method: :delete %>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-lg-4">
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th>#</th>
+            <th>ユーザー名</th>
+            <th>コメント</th>
+          <tr>
+        </thead>
+        <tbody>
+          <% @post.post_comments.each do |post_comment| %>
+          <tr>
+            <th scope="row">
+              <%= image_tag post_comment.user.get_profile_image(50,50) %></th>
+            <td>
+              <%= post_comment.user.name %>
+            </td>
+            <td>
+              <%= post_comment.comment %>
+            </td>
+            <% if post_comment.user == current_user %>
+            <td>
+              <%= link_to "削除" , post_post_comment_path(post_comment.post, post_comment), method: :delete  %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+          <tr>
+            <%= paginate @post_post_comments %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-<% else @post.image.attached? %>
-  <%= link_to user_path(@post.user_id) do %>
-    <%= @post.user.name %>
-    <% end %><br>
-  <%= @post.title %><br>
-  <%= @post.body %><br>
-  <%= image_tag @post.get_file(500,500) %>
-  <div id="favorite_buttons_<%= @post.id %>">
-  <%= render "public/favorites/favorite" , post: @post %>
-  </div>
-<% end %>
+</div>
 
-<% if @post.user == current_user %>
-  <%= link_to "削除", post_path(@post), method: :delete %>
-<% end %>
-
-コメント件数:<%= @post.post_comments.count %>
-<% @post.post_comments.each do |post_comment| %>
-  <%= image_tag post_comment.user.get_profile_image(50,50) %>
-  <%= post_comment.user.name %>
-  <%= post_comment.comment %>
-  <% if post_comment.user == current_user %>
-    <%= link_to "削除" , post_post_comment_path(post_comment.post, post_comment), method: :delete  %>
-  <% end %>
-<% end %>
-
-<% if @post_comment.errors.any? %>
-  <ul>
-    <% @post_comment.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: [@post, @post_comment]  do |f| %>
-  <%= f.text_area :comment , placeholder: "コメントをここに" %>
-  <%= f.submit "送信する" %>
-<% end %>

@@ -24,7 +24,9 @@
           <th>文章</th>
           <td><%= f.text_area :body,class: "form-control", placeholder: "文章" %></td>
         </tr>
-      <div class="d-flex justify-content-center"><%= f.submit "新規投稿", class: "btn btn-success" %></div>
+        <tr>
+          <td class="d-flex justify-content-center"><%= f.submit "新規投稿", class: "btn btn-success" %></td>
+        </tr>
       <% end %>
       </tbody>
     </div></.div>

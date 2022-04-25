@@ -1,11 +1,42 @@
-<p>いいねした投稿一覧</p>
-
-<% @favorite_posts.each do |post|%>
-  <%= image_tag post.user.get_profile_image(50,50) %>
-  <%= link_to user_path(post.user) do %>
-    <% post.user.name %>
-  <% end %>
-  <%= link_to post_path(post) do %>
-    <%= post.title %>
-  <% end %>
-<% end %>
+<div class="container-xxl mt-5 mx-5">
+  <table class="table">
+    <thead>
+      <tr>
+        <td><h2 class="ml-5">いいねした投稿一覧</h2></td>
+      </tr>
+    </thead>
+  </table>
+  <table class="table">
+    <tbody>
+      <div class="ml-5">
+        <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th>#</th>
+              <th>投稿者</th>
+              <th>タイトル</th>
+            </tr>
+          </thead>
+          <% @favorite_posts.each do |post|%>
+          <tbody>
+            <tr>
+              <td scope="row">
+                <%= image_tag post.user.get_profile_image(50,50) %>
+              </td>
+              <td>
+                <%= link_to user_path(post.user) do %>
+                  <% post.user.name %>
+                <% end %>
+              </td>
+              <tr>
+                <%= link_to post_path(post) do %>
+                  <%= post.title %>
+                <% end %>
+              </tr>
+            </tbody>
+          <% end %>
+        </table>
+      </div>
+    </tbody>
+  </table>
+</div>

@@ -36,6 +36,7 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    @post_post_comments = @post.post_comments.page(params[:page]).per(5)
   end
 
   def destroy

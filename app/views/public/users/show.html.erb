@@ -18,7 +18,9 @@
         <%= link_to "フォローする", user_relationships_path(@user.id), method: :post, class: "btn-sm btn-success" %>
       <% end %><br>
         <%= link_to "いいね一覧", favorites_user_path(@user), class: "btn-sm btn-primary" %>
+      <% if current_user == @user && @user.name != "ゲストユーザー" %>
         <%= link_to "通知一覧", notifications_path, class: "btn-sm btn-primary" %><br>
+      <% end %>
         <% if current_user == @user && @user.name != "ゲストユーザー" %>
           <%= link_to "新規投稿", new_post_path, class: "btn-sm btn-info" %>
           <%= link_to "編集する", edit_user_path, class: "btn-sm btn-info" %>
