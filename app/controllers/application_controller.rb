@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
 
+  #ログイン制限
+  before_action :authenticate_user!
+
   before_action :configure_permitted_parameters,if: :devise_controller?
 
- 
+
   protected
 
   def configure_permitted_parameters

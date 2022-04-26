@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   }
 
   scope module: :public do
-    resources :users, only:[:show, :edit, :update, :index] do
+    resources :users, only:[:show, :edit, :update, :index, :destroy] do
       member do
         get :favorites
       end
@@ -42,9 +42,9 @@ Rails.application.routes.draw do
   end
 
   # 退会確認画面
-  get "/users/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
+  get "/users/:id/unsubscribe" => "public/users#unsubscribe", as: "unsubscribe"
   # 論理削除用のルーティング
-  patch "/users/withdrawal" => "public/users#withdrawal", as: "withdrawal"
+  patch "/users/:id/withdrawal" => "public/users#withdrawal", as: "withdrawal"
 
   devise_for :admin,skip:[:registrations,:passwords],controllers:{
     sessions:'admin/sessions'

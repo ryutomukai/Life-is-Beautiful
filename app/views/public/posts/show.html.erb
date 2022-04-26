@@ -1,6 +1,6 @@
 <div class="container-xl mt-5 m-5">
   <div class="row">
-    <div class="col-lg-7">
+    <div class="col-lg-6">
         <% if @post_comment.errors.any? %>
         <ul>
           <% @post_comment.errors.full_messages.each do |message| %>
@@ -14,7 +14,7 @@
           </tr><br>
           <tr>
             <td>
-              投稿者：
+              投稿者　：
               <%= link_to user_path(@post.user_id) do %>
                 <%= @post.user.name %>
               <% end %>
@@ -29,7 +29,7 @@
           <tr>
             <td>
               タイトル：<%= @post.title %><br>
-              投稿文：<%= @post.body %><br>
+              投稿文　：<%= @post.body %><br>
             </td>
           </tr>
           <tr>
@@ -46,30 +46,35 @@
           </tr><br>
           <tr>
             <td>
-              投稿者：
+              投稿者　：
               <%= link_to user_path(@post.user_id) do %>
                 <%= @post.user.name %>
               <% end %>
             </td>
-            
-          </tr>
+          </tr><br>
           <tr>
             タイトル：<%= @post.title %><br>
-            投稿文：<%= @post.body %><br>
+            投稿文　：<%= @post.body %><br>
           </tr>
           <tr>
-          <div id="favorite_buttons_<%= @post.id %>">
-          <%= render "public/favorites/favorite" , post: @post %>
-          </div>
-          <td>
-            コメント:<%= @post.post_comments.count %>件
-          </td>
+            <div id="favorite_buttons_<%= @post.id %>">
+            <%= render "public/favorites/favorite" , post: @post %>
+            </div>
+            <td>
+              コメント:<%= @post.post_comments.count %>件
+            </td>
           </tr>
         <% end %>
         <% if @post.user == current_user %>
           <%= link_to "削除", post_path(@post), method: :delete %>
         <% end %>
-      </table>
+    </div>
+    <div class="col-lg-2">
+
+      <%= form_with model: [@post, @post_comment]  do |f| %>
+      <%= f.text_area :comment , placeholder: "コメントをここに" %>
+      <%= f.submit "送信する" %>
+      <% end %>
     </div>
     <div class="col-lg-4">
       <table class="table">
@@ -98,11 +103,7 @@
             </td>
           </tr>
           <% end %>
-          <tr>
-            <%= paginate @post_post_comments %>
-          </tr>
         </tbody>
-      </table>
     </div>
   </div>
 </div>
