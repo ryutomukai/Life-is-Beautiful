@@ -8,6 +8,11 @@ class Post < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  #バリデーション
+  validates :title, presence: true
+  validates :body, presence: true
+
+
   #投稿ファイル表示
   def get_file(width,height)
     if video.attached?
