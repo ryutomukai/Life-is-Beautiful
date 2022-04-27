@@ -26,8 +26,8 @@
             </td>
           <td>
               <%= form_with model: [@post, @post_comment]  do |f| %>
-              <%= f.text_area :comment , placeholder: "コメントをここに" %>
-              <%= f.submit "送信する" %>
+                <%= f.text_area :comment , placeholder: "コメントをここに" %>
+                <%= f.submit "送信する" %>
               <% end %>
             </td>
           </tr>
@@ -40,7 +40,7 @@
               コメント:<%= @post.post_comments.count %>件
             </div>
           </tr>
-        <% else @post.image.attached? %>
+      <% else @post.image.attached? %>
           <tr>
             <%= image_tag @post.get_file(400,500) %>
           </tr><br>
@@ -64,7 +64,7 @@
               コメント:<%= @post.post_comments.count %>件
             </td>
           </tr>
-        <% end %>
+      <% end %>
         <% if @post.user == current_user %>
           <%= link_to "削除", post_path(@post), method: :delete %>
         <% end %>
@@ -74,7 +74,7 @@
         <% end %>
     </div>
 
-      
+
     <div class="col-lg-6">
       <table class="table">
         <thead class="thead-light">
@@ -85,7 +85,7 @@
           <tr>
         </thead>
         <tbody>
-          <% @post.post_comments.each do |post_comment| %>
+          <% @post_post_comments.each do |post_comment| %>
           <tr>
             <th scope="row">
               <%= image_tag post_comment.user.get_profile_image(50,50) %></th>
@@ -102,7 +102,11 @@
             </td>
           </tr>
           <% end %>
+          <tr>
+            <td><%= paginate @post_post_comments %></td>
+          </tr>
         </tbody>
+      </table>
     </div>
   </div>
 </div>

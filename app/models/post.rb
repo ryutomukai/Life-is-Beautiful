@@ -13,6 +13,7 @@ class Post < ApplicationRecord
   validates :body, presence: true
 
 
+
   #投稿ファイル表示
   def get_file(width,height)
     if video.attached?
@@ -70,4 +71,18 @@ class Post < ApplicationRecord
     end
     notification.save
   end
+
+  validate :required_either_image_or_video
+
+  private
+
+  def required_either_image_or_video
+    # 演算子 ^ で排他的論理和（XOR）にしています
+    # emailかphoneのどちらかの値があれば true
+    # email、phoneどちらも入力されている場合や入力されていない場合は false
+    return if image.present? ^ video.present?
+
+    errors.add(:base, 'メールアドレスまたは電話番号のどちらか一方を入力してください')
+  end
+
 end
