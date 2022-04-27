@@ -2,7 +2,7 @@
   <table class="table">
     <thead>
       <tr>
-        <td><h2 class="ml-5">投稿一覧</h2></td>
+        <td><h2 class="ml-5">ユーザー一覧</h2></td>
         <!--検索フォーム-->
         <td>
           <%= search_form_for @q do |f| %>
@@ -28,6 +28,7 @@
           </thead>
         <% if params[:q].nil? %>
           <% @userall.each do |user| %>
+           <% unless user.name == "ゲストユーザー" %>
             <tbody>
               <tr>
                 <td scope="row">
@@ -43,6 +44,7 @@
                 </td>
               </tr>
             </tbody>
+            <% end %>
           <% end %>
         <% elsif !@users.present? && !params[:q].empty? %>
           <p>検索結果はありません</p>

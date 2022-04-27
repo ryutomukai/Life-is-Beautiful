@@ -1,37 +1,37 @@
+<% if @post_comment.errors.any? %>
+  <ul>
+    <% @post_comment.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 <div class="container-xl mt-5 m-5">
   <div class="row">
     <div class="col-lg-6">
-        <% if @post_comment.errors.any? %>
-        <ul>
-          <% @post_comment.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-        <% end %>
-        <% if @post.video.attached? %>
-          <tr>
-            <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
-          </tr><br>
-          <tr>
-            <td>
-              投稿者　：
+      <% if @post.video.attached? %>
+        <tr>
+          <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+        </tr><br>
+        <tr>
+          <td>
+            投稿者　：
               <%= link_to user_path(@post.user_id) do %>
                 <%= @post.user.name %>
               <% end %>
-            </td>
+          </td>
+          <tr>
             <td>
+              タイトル：<%= @post.title %><br>
+              投稿文　：<%= @post.body %><br>
+            </td>
+          <td>
               <%= form_with model: [@post, @post_comment]  do |f| %>
               <%= f.text_area :comment , placeholder: "コメントをここに" %>
               <%= f.submit "送信する" %>
               <% end %>
             </td>
           </tr>
-          <tr>
-            <td>
-              タイトル：<%= @post.title %><br>
-              投稿文　：<%= @post.body %><br>
-            </td>
-          </tr>
+        </tr>
           <tr>
             <div id="favorite_buttons_<%= @post.id %>">
             <%= render "public/favorites/favorite" , post: @post %>
@@ -68,15 +68,14 @@
         <% if @post.user == current_user %>
           <%= link_to "削除", post_path(@post), method: :delete %>
         <% end %>
+        <%= form_with model: [@post, @post_comment]  do |f| %>
+          <%= f.text_area :comment , placeholder: "コメントをここに" %>
+          <%= f.submit "送信する" %>
+        <% end %>
     </div>
-    <div class="col-lg-2">
 
-      <%= form_with model: [@post, @post_comment]  do |f| %>
-      <%= f.text_area :comment , placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
-      <% end %>
-    </div>
-    <div class="col-lg-4">
+      
+    <div class="col-lg-6">
       <table class="table">
         <thead class="thead-light">
           <tr>

@@ -1,7 +1,7 @@
-<div class="container-xxl mt-5 mx-5">
-  <h2 class="ml-5">マイページ</h2>
-  <div class="row">
-    <div class="col-3 ml-5 mt-5">
+<div class="container-xxl">
+  <h2 class="ml-5  mt-5">マイページ</h2>
+  <div class="row ml-3">
+    <div class="col-5 mt-2">
       <%= image_tag @user.get_profile_image(500,200) %><br>
       <h5 class="mt-1">
         <%= @user.name %>
@@ -12,20 +12,21 @@
       フォロワー数: <%= link_to user_followers_path(@user) do %>
         <%= @user.followers.count %>
         <% end %><br>
-      
+
         <%= link_to "いいね一覧", favorites_user_path(@user), class: "btn-sm btn-primary" %>
       <% if current_user == @user && @user.name != "ゲストユーザー" %>
         <%= link_to "通知一覧", notifications_path, class: "btn-sm btn-primary" %><br>
       <% end %>
-        <% if current_user == @user && @user.name != "ゲストユーザー" %>
-          <%= link_to "新規投稿", new_post_path, class: "btn-sm btn-info" %>
-          <%= link_to "編集する", edit_user_path, class: "btn-sm btn-info" %>
-          <%= link_to "退会する", unsubscribe_path, class: "btn-sm btn-warning"  %><br>
-        <% end %>
+      <% if current_user == @user && @user.name != "ゲストユーザー" %>
+        <%= link_to "新規投稿", new_post_path, class: "btn-sm btn-info" %>
+        <%= link_to "編集する", edit_user_path, class: "btn-sm btn-info" %>
+        <%= link_to "退会する", unsubscribe_path, class: "btn-sm btn-warning"  %><br>
+      <% end %>
+      <div class=mt-2>
+        <%= @user.introduction %>
+      </div>
     </div>
-    <div class="col-2 mt-5">
-       <%= @user.introduction %>
-    </div>
+
     <div class="col-6">
       <table class="table">
         <thead class="thead-light">

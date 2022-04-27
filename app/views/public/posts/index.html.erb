@@ -26,6 +26,7 @@
               <th>タイトル</th>
             </tr>
           </thead>
+        <!--検索してない状態-->
         <% if params[:q].nil? %>
           <% @postall.each do |post| %>
               <tbody>
@@ -34,7 +35,9 @@
                     <%= image_tag post.user.get_profile_image(50,50) %>
                   </td>
                   <td>
-                    <%= post.user.name %>
+                    <%= link_to user_path(post.user) do %>
+                      <%= post.user.name %>
+                    <% end %>
                   </td>
                   <td>
                     <%= link_to post_path(post) do %>
@@ -45,8 +48,10 @@
               </tbody>
           <% end %>
             </table>
+        <!--検索結果が0件だった場合-->
         <% elsif !@posts.present? && !params[:q].empty? %>
           <p>検索結果はありません</p>
+        <!--検索がヒットした場合-->
         <% else @posts.present? %>
           <% @posts.each do |post| %>
             <tbody>

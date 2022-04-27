@@ -1,3 +1,18 @@
 // Place all the styles related to the public/homes controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+
+.title {
+  text-align: center;
+  margin-top: 150px;
+  background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+	background: -webkit-linear-gradient(left, orange , yellow, green, cyan, blue, violet);
+	background: -o-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+	background: -moz-linear-gradient(right, orange, yellow, green, cyan, blue, violet);
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-fill-color: transparent;
+}

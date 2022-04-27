@@ -32,6 +32,16 @@
           </li>
         <% elsif admin_signed_in? %>
           <li>
+            <%= link_to admin_limits_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> 制限ワード
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_admin_limit_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> 制限ワード追加
+            <% end %>
+          </li>
+          <li>
             <%= link_to destroy_admin_session_path, method: :delete,class: 'nav-link text-light' do %>
               <i class="fa-solid fa-right-from-bracket"></i> ログアウト
             <% end %>
