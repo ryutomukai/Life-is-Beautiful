@@ -13,7 +13,7 @@ class PostComment < ApplicationRecord
     limits = Limit.all
     limits.each do |limit|
       if self.comment.include?(limit.word)
-        errors.add(:コメント, "は制限ワードが含まれています")
+        errors.add(:comment, "は制限ワードが含まれています")
       end
     end
   end

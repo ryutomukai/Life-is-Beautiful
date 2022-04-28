@@ -12,6 +12,7 @@ class Public::PostCommentsController < ApplicationController
       @post.create_notification_post_comment!(current_user, @post_comment.id)
       redirect_to post_path(@post)
     else
+      @post_comments = @post.post_comments
       render "public/posts/show"
     end
   end
