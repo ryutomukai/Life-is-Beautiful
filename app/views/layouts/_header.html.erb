@@ -32,13 +32,13 @@
           </li>
         <% elsif admin_signed_in? %>
           <li>
-            <%= link_to admin_limits_path,class: 'nav-link text-light' do %>
-              <i class="fa-solid fa-right-from-bracket"></i> 制限ワード
+            <%= link_to admin_users_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> ユーザー一覧
             <% end %>
           </li>
           <li>
-            <%= link_to new_admin_limit_path,class: 'nav-link text-light' do %>
-              <i class="fa-solid fa-right-from-bracket"></i> 制限ワード追加
+            <%= link_to admin_limits_path,class: 'nav-link text-light' do %>
+              <i class="fa-solid fa-right-from-bracket"></i> 制限ワード
             <% end %>
           </li>
           <li>

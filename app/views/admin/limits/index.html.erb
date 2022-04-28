@@ -1,5 +1,10 @@
-<h1>制限ワード一覧</h1>
+<div class="container-xxl mt-5 ml-5">
+
+<%= render "new", limit: @limit %>
+<h4>制限ワード一覧</h4>
 
 <% @limits.each do |limit| %>
   「<%= limit.word %>」
 <% end %>
+
+</div>

@@ -1,32 +1,27 @@
-<h1>プロフィール変更</h1><br>
+<!--<h1>プロフィール変更</h1><br>-->
 
-<%= form_with model: @user, url: user_path(@user), method: :patch, local: false do |f| %>
-  <table>
-    <tr>
-      <th class="form-group">
-        <lavel for="user_name">ニックネーム</lavel>
-        <div class><%= f.text_field :name %></div>
-      </th>
-    </tr>
-    <tr>
-      <th class="form-group">
-        <lavel for="user_email">メールアドレス</lavel>
-        <div class><%= f.text_field :email %></div>
-      </th>
-    </tr>
-      <th class="form-group">
-        <lavel for="phone_number">電話番号</lavel>
-        <div class><%= f.text_field :phone_number %></div>
-      </th>
-    <tr>
-    </tr>
-      <th class="form-group">
-        <lavel for="introduction">自己紹介文</lavel>
-        <div class><%= f.text_field :introduction %></div>
-      </th>
-  </table>
-    <tr>
-      <td><%= f.submit "編集内容を保存" , class: "btn btn-success" %></td>
-      <td><%= link_to "退会する", unsubscribe_path, class: "btn btn-danger"   %></td>
-    </tr>
-  <% end %>
+<!--<%#= form_with model: @user, url: user_path(@user), method: :patch, local: false do |f| %>-->
+<!--  <table>-->
+<!--    <tr>-->
+<!--      <th class="form-group">-->
+<!--        <lavel for="user_name">ニックネーム</lavel>-->
+<!--        <div class><%#= f.text_field :name %></div>-->
+<!--      </th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <th class="form-group">-->
+<!--        <lavel for="user_email">メールアドレス</lavel>-->
+<!--        <div class><%#= f.text_field :email %></div>-->
+<!--      </th>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--    </tr>-->
+<!--      <th class="form-group">-->
+<!--        <lavel for="introduction">自己紹介文</lavel>-->
+<!--        <div class><%#= f.text_field :introduction %></div>-->
+<!--      </th>-->
+<!--  </table>-->
+<!--    <tr>-->
+<!--      <td><%#= f.submit "編集内容を保存" , class: "btn btn-success" %></td>-->
+<!--    </tr>-->
+<!--  <#% end %>-->

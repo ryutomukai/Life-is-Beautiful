@@ -11,6 +11,7 @@ class Admin::LimitsController < ApplicationController
 
   def index
     @limits = Limit.all
+    @limit = Limit.new
   end
 
   def create

@@ -1,0 +1,21 @@
+<h4>制限ワード追加</h4>
+
+<% if limit.errors.any? %>
+  制限ワードが重複しています
+  <ul>
+    <% limit.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: limit, url: admin_limits_path(limit), method: :post do |f| %>
+<table>
+  <tr>
+    <th>ワード</th>
+    <td><%= f.text_field :word,class: "form-control", placeholder: "ワード" %></td>
+    <td class="d-flex justify-content-center"><%= f.submit "追加", class: "btn btn-success" %></td>
+  </tr>
+</table>
+
+<% end %>

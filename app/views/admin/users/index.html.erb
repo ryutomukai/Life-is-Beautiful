@@ -1,19 +1,24 @@
-<h1>ユーザー一覧</h1><br>
+<div class="container-xxl mt-5 mx-5">
+  <h2 class>ユーザー一覧</h2><br>
+  <% @users.each do |user| %>
+  <table class="table">
+    <tr>
+      <th><%= user.id %></th>
+      <td><%= link_to admin_user_path(user.id) do %>
+          <%= user.name %>
+          <% end %>
+      </td>
+      <td><%= user.email %></td>
 
-<% @users.each do |user| %>
-<tr>
-  <th><%= user.id %></th>
-  <td><%= link_to admin_user_path(user.id) do %>
-      <%= user.name %>
-      <% end %>
-  </td>
-  <td><%= user.email %></td>
-  <td>
-    <% if user.is_deleted == false %>
-    <!--falseである場合-->
-    <p class="text-success">有効</p>
-    <% else %>
-    <!--trueである場合-->
-    <p class="text-secondary">退会</p>
+      <!--論理削除実行の場合の有効ユーザー可否-->
+      <!--<td>-->
+      <!--  <%# if user.is_deleted == false %>-->
+        <!--falseである場合-->
+      <!--  <p class="text-success">有効</p>-->
+      <!--  <%# else %>-->
+        <!--trueである場合-->
+      <!--  <p class="text-secondary">退会</p>-->
+      <!--  <%# end %>-->
+  </table>
     <% end %>
-<% end %>
+</div>
