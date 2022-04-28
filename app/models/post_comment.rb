@@ -6,10 +6,10 @@ class PostComment < ApplicationRecord
 
   #バリデーション
   validates :comment, presence: true
-  validate :ng
+  validate :ng_word
 
-  #コメント制限
-  def ng
+  #コメント制限メソッド(誹謗中傷ワードが含まれている場合コメント投稿不可)
+  def ng_word
     limits = Limit.all
     limits.each do |limit|
       if self.comment.include?(limit.word)

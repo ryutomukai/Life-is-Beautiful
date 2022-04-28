@@ -1,11 +1,14 @@
-<h1>通知一覧</h1>
-
-<%# notifications = @notifications.where.not(visitor_id: current_user.id) %>
-<% if @notifications.exists? %>
-  <% @notifications.each do |notification| %>
-  <%= render "notification", notification: notification %>
+<h2 class=m-5>通知一覧</h2>
+  <div class=ml-5>
+  <%# notifications = @notifications.where.not(visitor_id: current_user.id) %>
+  <% if @notifications.exists? %>
+    <% @notifications.each do |notification| %>
+      <table class="ml-5">
+        <%= render "notification", notification: notification %>
+      </table>
+    <% end %>
+    <%= paginate @notifications %>
+  <% else %>
+  <div>通知はありません</div>
   <% end %>
-  <%= paginate @notifications %>
-<% else %>
-<div>通知はありません</div>
-<% end %>
+</div>

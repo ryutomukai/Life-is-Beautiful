@@ -1,6 +1,6 @@
 <div class="container-xxl mt-5 mx-5">
   <h2 class="mb-5">ユーザー情報編集</h2>
-  <div class="row">
+  <div class="row ml-3">
     <%= form_with model: @user, url: user_path(@user), method: :patch, local: false do |f| %>
       <table>
         <tr>
@@ -22,12 +22,6 @@
           </th>
         </tr>
         <tr>
-          <th class="form-group">
-            <lavel for="phone_number">電話番号</lavel>
-            <div class><%= f.text_field :phone_number %></div>
-          </th>
-        </tr>
-        <tr>
         </tr>
           <th class="form-group">
             <lavel for="introduction">自己紹介文</lavel>
@@ -36,6 +30,8 @@
       </table>
         <tr>
           <td><%= f.submit "編集内容を保存" , class: "btn btn-success" %></td>
-          <td><%= link_to "退会する", unsubscribe_path, class: "btn btn-danger"   %></td>
+          <td><%= link_to "退会する", unsubscribe_path, class: "btn btn-danger" %></td>
         </tr>
-      <% end %>
+    <% end %>
+  </div>
+</div>

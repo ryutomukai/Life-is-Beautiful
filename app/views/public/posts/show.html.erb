@@ -10,7 +10,10 @@
     <div class="col-lg-6">
       <% if @post.video.attached? %>
         <tr>
-          <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+          <!--動画サイズ調整-->
+          <div class="embed-responsive embed-responsive-16by9">
+            <video src="<%= rails_blob_path(@post.video) %>" type="video/mp4" controls></video>
+          </div>
         </tr><br>
         <tr>
           <td>
@@ -77,7 +80,7 @@
           <tr>
         </thead>
         <tbody>
-          <% @post_post_comments.each do |post_comment| %>
+          <% @post_comments.each do |post_comment| %>
           <tr>
             <th scope="row">
               <%= image_tag post_comment.user.get_profile_image(50,50) %></th>
@@ -94,9 +97,9 @@
             </td>
           </tr>
           <% end %>
-          <tr>
-            <td><%= paginate @post_post_comments %></td>
-          </tr>
+          <!--<tr>-->
+          <!--  <td><%#= paginate @post_comments %></td>-->
+          <!--</tr>-->
         </tbody>
       </table>
     </div>
