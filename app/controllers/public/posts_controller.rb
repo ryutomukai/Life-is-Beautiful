@@ -33,9 +33,14 @@ class Public::PostsController < ApplicationController
   end
 
   def show
+    p "---------------"
     @post = Post.find(params[:id])
+    p @post
     @post_comment = PostComment.new
+    p @post_comment
     @post_comments = @post.post_comments
+    p @post_comments
+    p "---------------"
   end
 
   def destroy
