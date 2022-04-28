@@ -1,5 +1,7 @@
 class Public::FavoritesController < ApplicationController
 
+  #アクセス制限
+  before_action :authenticate_user!
 
   def create
     @post = Post.find(params[:post_id])

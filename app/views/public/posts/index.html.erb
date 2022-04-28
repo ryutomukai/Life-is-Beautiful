@@ -47,6 +47,7 @@
                 </tr>
               </tbody>
           <% end %>
+            <td><%= paginate @postall %></td>
             </table>
         <!--検索結果が0件だった場合-->
         <% elsif !@posts.present? && !params[:q].empty? %>

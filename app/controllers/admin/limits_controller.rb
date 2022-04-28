@@ -1,5 +1,10 @@
 class Admin::LimitsController < ApplicationController
 
+  #アクセス制限
+  before_action :authenticate_admin!
+
+  #コメント投稿時の制限ワード機能
+
   def new
     @limit = Limit.new
   end

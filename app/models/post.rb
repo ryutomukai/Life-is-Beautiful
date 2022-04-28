@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
 
+  #投稿用モデル
+
   has_one_attached :image
   has_one_attached :video
 
@@ -11,8 +13,8 @@ class Post < ApplicationRecord
   #バリデーション
   validates :title, presence: true
   validates :body, presence: true
-
-
+  #投稿時画像か動画ファイル必須(↓最下部メソッド設定)
+  validate :required_either_image_or_video
 
   #投稿ファイル表示
   def get_file(width,height)
@@ -24,11 +26,12 @@ class Post < ApplicationRecord
     image.variant(resize_to_limit: [width, height]).processed
   end
 
+  #いいね機能
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
 
-  #通知作成メソッド
+  #通知作成メソッド(いいね)
   def create_notification_favorite!(current_user)
     #既にいいねされているか検索
     temp = Notification.where(["visitor_id = ? and visited_id = ? and post_id = ? and action = ? ", current_user.id, user_id, id, "favorite"])
@@ -47,6 +50,7 @@ class Post < ApplicationRecord
     end
   end
 
+  #通知作成メソッド(コメント)
   def create_notification_post_comment!(current_user, post_comment_id)
     #自分以外にコメントしている人を全て取得し、全員に通知を送る
     temp_ids = PostComment.select(:user_id).where(post_id: id).where.not(user_id: current_user.id).distinct
@@ -72,17 +76,19 @@ class Post < ApplicationRecord
     notification.save
   end
 
-  validate :required_either_image_or_video
+
+
 
   private
 
+  #カスタムバリデーション用メソッド(投稿時画像か動画ファイル必須)
   def required_either_image_or_video
     # 演算子 ^ で排他的論理和（XOR）にしています
     # emailかphoneのどちらかの値があれば true
     # email、phoneどちらも入力されている場合や入力されていない場合は false
     return if image.present? ^ video.present?
 
-    errors.add(:base, 'メールアドレスまたは電話番号のどちらか一方を入力してください')
+    errors.add(:base, '画像または動画のどちらか一方を添付してください')
   end
 
 end

@@ -1,6 +1,9 @@
 class Public::UsersController < ApplicationController
 
-  #ゲストユーザー
+  #アクセス制限
+  before_action :authenticate_user!
+
+  #ゲストユーザーの権限制限
   before_action :ensure_guest_user, only: [:edit, :unsubscribe, :withdrawal]
   #検索機能
   before_action :search
@@ -19,7 +22,7 @@ class Public::UsersController < ApplicationController
   end
 
   def index
-    @userall = User.all
+    @userall = User.all.page(params[:page]).per(10)
     #検索機能
     if !params[:q].nil? && params[:q][:name_cont] != "" && params[:q][:name_cont] != " " && params[:q][:name_cont] != "　"
       @users = @q.result(distinct: true)
@@ -28,7 +31,7 @@ class Public::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @posts = @user.posts.page(params[:page]).per(10)
   end
 
   def edit

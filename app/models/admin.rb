@@ -5,6 +5,7 @@ class Admin < ApplicationRecord
          :rememberable, :validatable
 
 
+  #コメント制限機能
   has_many :limits
 
 

@@ -1,5 +1,7 @@
 class Notification < ApplicationRecord
 
+  #通知機能用モデル
+
   #デフォルト並び順を作成日時の降順指定
   default_scope -> { order(created_at: :desc) }
   belongs_to :post, optional: true

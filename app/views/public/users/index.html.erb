@@ -46,10 +46,14 @@
             </tbody>
             <% end %>
           <% end %>
+
+          <td><%= paginate @userall %></td>
+
         <% elsif !@users.present? && !params[:q].empty? %>
           <p>検索結果はありません</p>
         <% else @users.present? %>
           <% @users.each do |user| %>
+          <% unless user.name == "ゲストユーザー" %>
             <tbody>
               <tr>
                 <td scope="row">
@@ -65,6 +69,7 @@
                 </td>
               </tr>
             </tbody>
+            <% end %>
           <% end %>
         <% end %>
       </div>

@@ -16,10 +16,11 @@ class User < ApplicationRecord
   #フォロー一覧画面用
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
+
   #通知機能
   has_many :active_notifications, class_name: "Notification", foreign_key: "visitor_id", dependent: :destroy
   has_many :passive_notifications, class_name: "Notification", foreign_key: "visited_id", dependent: :destroy
-  
+
   #ゲストログイン
   def self.guest
     find_or_create_by!(name: 'ゲストユーザー' ,email: 'guest@example.com') do |user|
@@ -28,6 +29,7 @@ class User < ApplicationRecord
     end
   end
 
+  #フォロー機能
   def follow(user_id)
       relationships.create(followed_id: user_id)
   end
@@ -48,6 +50,7 @@ class User < ApplicationRecord
       profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  #退会確認
   def active_for_authentication?
     super && (is_deleted == false)
   end

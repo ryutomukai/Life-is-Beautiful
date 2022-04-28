@@ -15,31 +15,23 @@
         <tr>
           <td>
             投稿者　：
-              <%= link_to user_path(@post.user_id) do %>
-                <%= @post.user.name %>
-              <% end %>
+            <%= link_to user_path(@post.user_id) do %>
+              <%= @post.user.name %>
+            <% end %>
           </td>
-          <tr>
-            <td>
-              タイトル：<%= @post.title %><br>
-              投稿文　：<%= @post.body %><br>
-            </td>
-          <td>
-              <%= form_with model: [@post, @post_comment]  do |f| %>
-                <%= f.text_area :comment , placeholder: "コメントをここに" %>
-                <%= f.submit "送信する" %>
-              <% end %>
-            </td>
-          </tr>
+        </tr><br>
+        <tr>
+          タイトル：<%= @post.title %><br>
+          投稿文　：<%= @post.body %><br>
         </tr>
-          <tr>
-            <div id="favorite_buttons_<%= @post.id %>">
-            <%= render "public/favorites/favorite" , post: @post %>
-            </div>
-            <div>
-              コメント:<%= @post.post_comments.count %>件
-            </div>
-          </tr>
+        <tr>
+          <div id="favorite_buttons_<%= @post.id %>">
+          <%= render "public/favorites/favorite" , post: @post %>
+          </div>
+          <td>
+            コメント:<%= @post.post_comments.count %>件
+          </td>
+        </tr>
       <% else @post.image.attached? %>
           <tr>
             <%= image_tag @post.get_file(400,500) %>

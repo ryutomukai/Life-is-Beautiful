@@ -29,14 +29,14 @@ class Public::SessionsController < Devise::SessionsController
   def guest_sign_in
     user = User.guest
     sign_in user
-    redirect_to user_path(user), notice: 'ゲストユーザーでログインしました。'
+    redirect_to root_path(user), notice: 'ゲストユーザーでログインしました。'
   end
 
 
   protected
 
+  # 退会しているかを判断するメソッド(ユーザー論理削除の場合、利用)
   def reject_user
-    # 退会しているかを判断するメソッド
     @user = User.find_by(name: params[:user][:name])
     # 【処理内容1】 入力されたemailからアカウントを1件取得
     if @user

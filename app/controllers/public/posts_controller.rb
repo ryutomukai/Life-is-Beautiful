@@ -1,5 +1,8 @@
 class Public::PostsController < ApplicationController
 
+  #アクセス制限
+  before_action :authenticate_user!
+  #検索機能
   before_action :search
 
   def new
@@ -11,15 +14,8 @@ class Public::PostsController < ApplicationController
     @q = Post.ransack(params[:q])
   end
 
-  #投稿にいいねしたユーザー一覧
-  def favorites
-    @post = Post.find(params[:id])
-    favorites = Favorite.where(post_id: @post.id).pluck(:user_id)
-    @favorite_users = User.find(favorites)
-  end
-
   def index
-    @postall = Post.all
+    @postall = Post.all.page(params[:page]).per(10)
     #検索機能
     if !params[:q].nil? && params[:q][:title_or_body_cont] != "" && params[:q][:title_or_body_cont] != " " && params[:q][:title_or_body_or_cont] != "　"
       @posts = @q.result(distinct: true)
@@ -45,6 +41,13 @@ class Public::PostsController < ApplicationController
   def destroy
     Post.find(params[:id]).destroy
     redirect_to user_path(current_user)
+  end
+
+  #投稿にいいねしたユーザー一覧
+  def favorites
+    @post = Post.find(params[:id])
+    favorites = Favorite.where(post_id: @post.id).pluck(:user_id)
+    @favorite_users = User.find(favorites)
   end
 
   private
