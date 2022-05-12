@@ -30,3 +30,8 @@
 	-webkit-text-fill-color: transparent;
 	text-fill-color: transparent;
 }
+
+.background {
+  background-image: image-url('background.jpg');
+  background-size:cover;
+}
